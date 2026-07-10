@@ -10,6 +10,8 @@ MainFrame::MainFrame(const String& name)
    setUsingNativeTitleBar(true);
    setResizable(true, false);
    setResizeLimits(400, 400, 10000, 10000);
+   setSize(1280, 720);
+   centreWithSize(1280, 720);
    //
   setContentOwned (new MainComponent(), false);
   setVisible(true);
