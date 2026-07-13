@@ -43,7 +43,10 @@ MainComponent::MainComponent(void)
     FUpPanelButton2.addListener(this);
     FUpPanelButton3.addListener(this);
     FUpPanelButton4.addListener(this);
+    FUpPanelButton5.addListener(this);
+    FUpPanelButton6.addListener(this);
     FUpPanelButton7.addListener(this);
+    FUpPanelButton8.addListener(this);
 }
 //
 MainComponent::~MainComponent(void)
@@ -73,9 +76,17 @@ void MainComponent::buttonClicked(Button* button) {
     if (button == &FUpPanelButton4) {
         currentLine.figures = Line::Figures::romb;
     }
+    if (button == &FUpPanelButton5) {
+        currentLine.figures = Line::Figures::trapezoid;
+    }
+    if (button == &FUpPanelButton6) {
+        currentLine.figures = Line::Figures::parallelogram;
+    }
     if (button == &FUpPanelButton7) {
-        //tool = Tools::ellipse;
         currentLine.figures = Line::Figures::ellipse;
+    }
+    if (button == &FUpPanelButton8) {
+        currentLine.figures = Line::Figures::polygon;
     }
 }
 void MainComponent::mouseDown(const MouseEvent& e) {
@@ -121,7 +132,7 @@ void MainComponent::paint(Graphics& g)
     g.drawRect(0, 432, 80, 13); // мб + 30 по Y
     if (isDragging) {
         g.setColour(currentLine.colour);
-        //разбиение на рисование фигур
+        //разбиение на рисование фигур 
         if (currentLine.figures == Line::Figures::line) {
             g.drawLine(currentLine.start.x, currentLine.start.y,
                 currentLine.end.x, currentLine.end.y,
@@ -140,21 +151,34 @@ void MainComponent::paint(Graphics& g)
             g.fillPath(a);
         }
         if (currentLine.figures == Line::Figures::romb) {
-            g.drawLine(currentLine.start.x, currentLine.start.y,
+            a.addQuadrilateral(currentLine.start.x + abs(currentLine.end.x - currentLine.start.x), currentLine.start.y,
+                currentLine.start.x, currentLine.start.y + abs(currentLine.start.y - currentLine.end.y),
+                currentLine.start.x - abs(currentLine.end.x - currentLine.start.x), currentLine.start.y,
+                currentLine.start.x, currentLine.start.y - abs(currentLine.start.y - currentLine.end.y));
+            g.fillPath(a);
+        }
+        if (currentLine.figures == Line::Figures::trapezoid) {
+            a.addQuadrilateral(currentLine.start.x, currentLine.start.y,
+                currentLine.end.x + 0.2 * abs(currentLine.start.x - currentLine.end.x), currentLine.start.y,
                 currentLine.end.x, currentLine.end.y,
-                currentLine.thickness);
-            g.drawLine(currentLine.start.x, currentLine.start.y + 2 * abs(currentLine.start.y - currentLine.end.y),
+                currentLine.start.x + 0.2 * abs(currentLine.start.x - currentLine.end.x), currentLine.end.y);
+            g.fillPath(a);
+        }
+        if (currentLine.figures == Line::Figures::parallelogram) {
+            a.addQuadrilateral(currentLine.start.x, currentLine.start.y,
+                currentLine.end.x - 0.2 * abs(currentLine.start.x - currentLine.end.x), currentLine.start.y,
                 currentLine.end.x, currentLine.end.y,
-                currentLine.thickness);// правый низ
-            g.drawLine(currentLine.start.x, currentLine.start.y,
-                currentLine.start.x - abs(currentLine.start.x - currentLine.end.x), currentLine.end.y,
-                currentLine.thickness);
+                currentLine.start.x + 0.2 * abs(currentLine.start.x - currentLine.end.x), currentLine.end.y);
+            g.fillPath(a);
         }
         if (currentLine.figures == Line::Figures::ellipse) {
             g.drawEllipse(std::min(currentLine.start.x, currentLine.end.x), std::min(currentLine.start.y, currentLine.end.y),
                 abs(currentLine.start.x - currentLine.end.x),
                 abs(currentLine.start.y - currentLine.end.y),
                 currentLine.thickness);
+        }
+        if (currentLine.figures == Line::Figures::polygon) {
+
         }
     }
     for (int i = 0; i < lines.size(); i++) {
@@ -164,30 +188,42 @@ void MainComponent::paint(Graphics& g)
             g.drawLine(line.start.x, line.start.y, line.end.x, line.end.y, line.thickness);
         }
         if (line.figures == Line::Figures::rect) {
-            g.drawRect(std::min(line.start.x, line.end.x), std::min(line.start.y, line.end.y), abs(line.start.x - line.end.x), abs(line.start.y - line.end.y), line.thickness);
+            g.drawRect(std::min(line.start.x, line.end.x),
+                std::min(line.start.y, line.end.y),
+                abs(line.start.x - line.end.x),
+                abs(line.start.y - line.end.y), line.thickness);
         }
         if (line.figures == Line::Figures::triangle) {
             a.addTriangle(line.start.x, line.start.y, line.end.x, line.end.y, line.start.x - (line.end.x - line.start.x), line.end.y);
             g.fillPath(a);
         }
         if (line.figures == Line::Figures::romb) {
-            g.drawLine(line.start.x, line.start.y,
+            a.addQuadrilateral(line.start.x + abs(line.end.x - line.start.x), line.start.y,
+                line.start.x, line.start.y + abs(line.start.y - line.end.y),
+                line.start.x - abs(line.end.x - line.start.x), line.start.y,
+                line.start.x, line.start.y - abs(line.start.y - line.end.y));
+            g.fillPath(a);
+        }
+        if (line.figures == Line::Figures::trapezoid) {
+            a.addQuadrilateral(line.start.x, line.start.y,
+                line.end.x + 0.2 * abs(line.start.x - line.end.x), line.start.y,
                 line.end.x, line.end.y,
-                line.thickness);
-            g.drawLine(line.start.x, line.start.y + 2 * abs(line.start.y - line.end.y),
+                line.start.x + 0.2 * abs(line.start.x - line.end.x), line.end.y);
+            g.fillPath(a);
+        }
+        if (line.figures == Line::Figures::parallelogram) {
+            a.addQuadrilateral(line.start.x, line.start.y,
+                line.end.x - 0.2 * abs(line.start.x - line.end.x), line.start.y,
                 line.end.x, line.end.y,
-                line.thickness);// правый низ
-            g.drawLine(line.start.x, line.start.y,
-                line.start.x - abs(line.start.x - line.end.x), line.end.y,
-                line.thickness);
-            g.drawLine(line.start.x, line.start.y,
-                line.start.x - abs(line.start.x - line.end.x), line.start.y + 2 * abs(line.start.y - line.end.y),
-                line.thickness);
+                line.start.x + 0.2 * abs(line.start.x - line.end.x), line.end.y);
+            g.fillPath(a);
         }
         if (line.figures == Line::Figures::ellipse) {
             g.drawEllipse(std::min(line.start.x, line.end.x), std::min(line.start.y, line.end.y), abs(line.start.x - line.end.x), abs(line.start.y - line.end.y), line.thickness);
         }
-        //g.strokePath(a);
+        if (line.figures == Line::Figures::polygon) {
+
+        }
     }
     
 }
