@@ -11,11 +11,13 @@ MainComponent::MainComponent()
 	buttonsPanel = new ButtonsPanel(canvas);
 	colourPanel = new ColourPanel(canvas);
 	sliderPanels = new SliderPanels(canvas);
+
 	addAndMakeVisible(canvas);
 	addAndMakeVisible(buttonsPanel);
 	addAndMakeVisible(buttonsPanelLeft);
 	addAndMakeVisible(colourPanel);
 	addAndMakeVisible(sliderPanels);
+	
 }
 MainComponent::~MainComponent() {}
 void MainComponent::resized(void){

@@ -23,5 +23,12 @@ private:
     DrawableButton FEllipseButton7;
     DrawableButton FPolygonButton8;
 
+    // кнопки Copy-Paste, Grid, Layers, Zoom in, Zoom out
+    DrawableButton FButtonCopy;
+    DrawableButton FButtonPaste;
+    DrawableButton FButtonGrid;
+    DrawableButton FButtonLayers;
+    DrawableButton FButtonZoomIn;
+    DrawableButton FButtonZoomOut;
 };
 

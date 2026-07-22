@@ -14,4 +14,11 @@ MainFrame::MainFrame(const String& name)
 
     setContentOwned(new MainComponent(), false);
     setVisible(true);
+
+    MainComponent* mainComp = new MainComponent();
+    setContentOwned(mainComp, true);
+
+    // Создаём меню, передавая холст
+    menuModel = std::make_unique<MenuModel>(mainComp->getCanvas());
+    setMenuBar(menuModel.get());
 }

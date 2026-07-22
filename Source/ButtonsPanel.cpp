@@ -10,7 +10,13 @@ ButtonsPanel::ButtonsPanel(Canvas* owner):
     FTrapezoidButton5("Trapezoid", DrawableButton::ButtonStyle::ImageAboveTextLabel),
     FParallelogramButton6("Parallelogram", DrawableButton::ButtonStyle::ImageAboveTextLabel),
     FEllipseButton7("Ellipse", DrawableButton::ButtonStyle::ImageAboveTextLabel),
-    FPolygonButton8("Polygon", DrawableButton::ButtonStyle::ImageAboveTextLabel)
+    FPolygonButton8("Polygon", DrawableButton::ButtonStyle::ImageAboveTextLabel),
+    FButtonCopy("Copy", DrawableButton::ButtonStyle::ImageAboveTextLabel),
+    FButtonPaste("Paste", DrawableButton::ButtonStyle::ImageAboveTextLabel),
+    FButtonGrid("Grid", DrawableButton::ButtonStyle::ImageAboveTextLabel),
+    FButtonLayers("Layers", DrawableButton::ButtonStyle::ImageAboveTextLabel),
+    FButtonZoomIn("ZoomIn", DrawableButton::ButtonStyle::ImageAboveTextLabel),
+    FButtonZoomOut("ZoomOut", DrawableButton::ButtonStyle::ImageAboveTextLabel)
 {
     Component::setOpaque(true);
 
@@ -22,6 +28,13 @@ ButtonsPanel::ButtonsPanel(Canvas* owner):
     Component::addAndMakeVisible(FParallelogramButton6);
     Component::addAndMakeVisible(FEllipseButton7);
     Component::addAndMakeVisible(FPolygonButton8);
+
+    Component::addAndMakeVisible(FButtonCopy);
+    Component::addAndMakeVisible(FButtonPaste);
+    Component::addAndMakeVisible(FButtonGrid);
+    Component::addAndMakeVisible(FButtonLayers);
+    Component::addAndMakeVisible(FButtonZoomIn);
+    Component::addAndMakeVisible(FButtonZoomOut);
 
     // Определяем корневую папку приложения
     auto appDir = juce::File::getSpecialLocation(juce::File::currentExecutableFile).getParentDirectory();
@@ -75,6 +88,50 @@ ButtonsPanel::ButtonsPanel(Canvas* owner):
     auto iconPolygonEnable = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/PollygonEnable.png"));
     FPolygonButton8.setImages(iconPolygonNormal.get(), iconPolygonOver.get(), iconPolygonDown.get(), iconPolygonEnable.get());
 
+    //Дополнительные кнопки
+
+// Copy
+    auto iconCopyNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/CopyNormal.png"));
+    auto iconCopyDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/CopyDown.png"));
+    auto iconCopyOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/CopyOver.png"));
+    auto iconCopyEnable = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/CopyEnable.png"));
+    FButtonCopy.setImages(iconCopyNormal.get(), iconCopyOver.get(), iconCopyDown.get(), iconCopyEnable.get());
+
+    // Paste
+    auto iconPasteNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/PasteNormal.png"));
+    auto iconPasteDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/PasteDown.png"));
+    auto iconPasteOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/PasteOver.png"));
+    auto iconPasteEnable = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/PasteEnable.png"));
+    FButtonPaste.setImages(iconPasteNormal.get(), iconPasteOver.get(), iconPasteDown.get(), iconPasteEnable.get());
+
+    // Grid
+    auto iconGridNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/GridNormal.png"));
+    auto iconGridDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/GridDown.png"));
+    auto iconGridOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/GridOver.png"));
+    auto iconGridEnable = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/GridEnable.png"));
+    FButtonGrid.setImages(iconGridNormal.get(), iconGridOver.get(), iconGridDown.get(), iconGridEnable.get());
+
+    // Layers
+    auto iconLayersNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/LayersNormal.png"));
+    auto iconLayersDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/LayersDown.png"));
+    auto iconLayersOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/LayersOver.png"));
+    auto iconLayersEnable = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/LayersEnable.png"));
+    FButtonLayers.setImages(iconLayersNormal.get(), iconLayersOver.get(), iconLayersDown.get(), iconLayersEnable.get());
+
+    // ZoomIn
+    auto iconZoomInNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ZoomInNormal.png"));
+    auto iconZoomInDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ZoomInDown.png"));
+    auto iconZoomInOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ZoomInOver.png"));
+    auto iconZoomInEnable = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ZoomInEnable.png"));
+    FButtonZoomIn.setImages(iconZoomInNormal.get(), iconZoomInOver.get(), iconZoomInDown.get(), iconZoomInEnable.get());
+
+    // ZoomOut
+    auto iconZoomOutNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ZoomOutNormal.png"));
+    auto iconZoomOutDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ZoomOutDown.png"));
+    auto iconZoomOutOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ZoomOutOver.png"));
+    auto iconZoomOutEnable = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ZoomOutEnable.png"));
+    FButtonZoomOut.setImages(iconZoomOutNormal.get(), iconZoomOutOver.get(), iconZoomOutDown.get(), iconZoomOutEnable.get());
+
     //блок слушателя кнопок режима геометрии
     FLineButton1.addListener(this);
     FRectButton2.addListener(this);
@@ -84,6 +141,13 @@ ButtonsPanel::ButtonsPanel(Canvas* owner):
     FParallelogramButton6.addListener(this);
     FEllipseButton7.addListener(this);
     FPolygonButton8.addListener(this);
+
+    FButtonCopy.addListener(this);
+    FButtonPaste.addListener(this);
+    FButtonGrid.addListener(this);
+    FButtonLayers.addListener(this);
+    FButtonZoomIn.addListener(this);
+    FButtonZoomOut.addListener(this);
 }
 ButtonsPanel::~ButtonsPanel()
 {
@@ -168,5 +232,18 @@ void ButtonsPanel::resized(void)
     FEllipseButton7.setBounds(301, 23, 40, 40);
     FPolygonButton8.setBounds(336, 23, 40, 40);
 
+    FButtonCopy.setBounds(825,23,40,40);
+    FButtonPaste.setBounds(860,23,40,40);
+    FButtonGrid.setBounds(910,23,40,40);
+    FButtonLayers.setBounds(940,23,40,40);
+    FButtonZoomIn.setBounds(1130,23,40,40);
+    FButtonZoomOut.setBounds(1160,23,40,40);
+
     FPolygonButton8.setEnabled(false);
+    FButtonCopy.setEnabled(false);
+    FButtonPaste.setEnabled(false);
+    FButtonGrid.setEnabled(false);
+    FButtonLayers.setEnabled(false);
+    FButtonZoomIn.setEnabled(false);
+    FButtonZoomOut.setEnabled(false);
 }

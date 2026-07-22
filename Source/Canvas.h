@@ -54,8 +54,14 @@ public:
     }
     void DeleteLines() {
         lines.clear();
+        currentLine = Line();
+        isDragging = false;
+        backgroundImage = juce::Image();
         repaint();
     }
+    // Files
+    void saveCanvasToPNG();
+    void loadPNGFromFile();
 private:
     // блок рисования
     std::vector<Line> lines;
@@ -64,5 +70,6 @@ private:
     int thickness = 1;
     float opacity = 1.0f;
     juce::Colour backgroundColor = Colour(200, 200, 200);
+    juce::Image backgroundImage;
 };
 

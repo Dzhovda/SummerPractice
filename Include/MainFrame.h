@@ -17,5 +17,6 @@ public:
    MainComponent& getMainComponent(void) { return *dynamic_cast<MainComponent*> (getContentComponent()); }
    //
 private:
-   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainFrame)
+    std::unique_ptr<MenuModel> menuModel;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainFrame)
 };
