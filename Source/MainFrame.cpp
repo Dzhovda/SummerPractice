@@ -12,13 +12,18 @@ MainFrame::MainFrame(const String& name)
     setSize(1280, 720);
     centreWithSize(1280, 720);
 
-    setContentOwned(new MainComponent(), false);
-    setVisible(true);
-
-    MainComponent* mainComp = new MainComponent();
+    
+    auto* mainComp = new MainComponent();
     setContentOwned(mainComp, true);
 
-    // —оздаЄм меню, передава€ холст
+    // —оздаЄм модель меню, использу€ холст из mainComp
     menuModel = std::make_unique<MenuModel>(mainComp->getCanvas());
     setMenuBar(menuModel.get());
+
+    setVisible(true);  
+}
+MainFrame::~MainFrame()
+{
+    setMenuBar(nullptr);    // отключаем меню, оно будет удалено
+    // затем автоматически удалитс€ содержимое (setContentOwned)
 }

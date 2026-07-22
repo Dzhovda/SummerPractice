@@ -20,78 +20,78 @@ ButtonsPanelLeft::ButtonsPanelLeft(Canvas* owner):
     Component::setOpaque(true);
 
     // Определяем корневую папку приложения (там, где лежит .exe)
-    auto appDir = juce::File::getSpecialLocation(juce::File::currentExecutableFile).getParentDirectory();
+    auto appDir = juce::File::getCurrentWorkingDirectory().getParentDirectory().getParentDirectory();
 
     // Brush
-    auto iconBrushNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/BrushNormal.png"));
-    auto iconBrushDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/BrushDown.png"));
-    auto iconBrushOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/BrushOver.png"));
+    auto iconBrushNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/BrushNormal.png"));
+    auto iconBrushDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/BrushDown.png"));
+    auto iconBrushOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/BrushOver.png"));
     FBrush.setImages(iconBrushNormal.get(), iconBrushOver.get(), iconBrushDown.get());
 
     // Eraser
-    auto iconEraserNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/EraserNormal.png"));
-    auto iconEraserDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/EraserDown.png"));
-    auto iconEraserOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/EraserOver.png"));
+    auto iconEraserNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/EraserNormal.png"));
+    auto iconEraserDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/EraserDown.png"));
+    auto iconEraserOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/EraserOver.png"));
     FEraser.setImages(iconEraserNormal.get(), iconEraserOver.get(), iconEraserDown.get());
 
     // Fill
-    auto iconFillNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/FillNormal.png"));
-    auto iconFillDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/FillDown.png"));
-    auto iconFillOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/FillOver.png"));
-    auto iconFillEnable = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/FillEnable.png"));
+    auto iconFillNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/FillNormal.png"));
+    auto iconFillDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/FillDown.png"));
+    auto iconFillOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/FillOver.png"));
+    auto iconFillEnable = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/FillEnable.png"));
     FFill.setImages(iconFillNormal.get(), iconFillOver.get(), iconFillDown.get(), iconFillEnable.get());
 
     // Pipette
-    auto iconPipetteNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/PipetteNormal.png"));
-    auto iconPipetteDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/PipetteDown.png"));
-    auto iconPipetteOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/PipetteOver.png"));
-    auto iconPipetteEnable = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/PipetteEnable.png"));
+    auto iconPipetteNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/PipetteNormal.png"));
+    auto iconPipetteDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/PipetteDown.png"));
+    auto iconPipetteOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/PipetteOver.png"));
+    auto iconPipetteEnable = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/PipetteEnable.png"));
     FPipette.setImages(iconPipetteNormal.get(), iconPipetteOver.get(), iconPipetteDown.get(), iconPipetteEnable.get());
 
     // Text
-    auto iconTextNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/TextNormal.png"));
-    auto iconTextDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/TextDown.png"));
-    auto iconTextOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/TextOver.png"));
-    auto iconTextEnable = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/TextEnable.png"));
+    auto iconTextNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/TextNormal.png"));
+    auto iconTextDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/TextDown.png"));
+    auto iconTextOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/TextOver.png"));
+    auto iconTextEnable = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/TextEnable.png"));
     FText.setImages(iconTextNormal.get(), iconTextOver.get(), iconTextDown.get(), iconTextEnable.get());
 
     // FillOutline
-    auto iconFillOutNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/FillOutNormal.png"));
-    auto iconFillOutDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/FillOutDown.png"));
-    auto iconFillOutOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/FillOutOver.png"));
-    auto iconFillOutEnable = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/FillOutDown.png")); // если есть
+    auto iconFillOutNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/FillOutNormal.png"));
+    auto iconFillOutDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/FillOutDown.png"));
+    auto iconFillOutOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/FillOutOver.png"));
+    auto iconFillOutEnable = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/FillOutDown.png"));
     FFillOutline.setImages(iconFillOutNormal.get(), iconFillOutOver.get(), iconFillOutDown.get(), iconFillOutEnable.get());
     FFillOutline.setClickingTogglesState(true);
     // Hand
-    auto iconHandNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/HandNormal.png"));
-    auto iconHandDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/HandDown.png"));
-    auto iconHandOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/HandOver.png"));
-    auto iconHandEnable = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/HandEnable.png"));
+    auto iconHandNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/HandNormal.png"));
+    auto iconHandDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/HandDown.png"));
+    auto iconHandOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/HandOver.png"));
+    auto iconHandEnable = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/HandEnable.png"));
     FMove.setImages(iconHandNormal.get(), iconHandOver.get(), iconHandDown.get(), iconHandEnable.get());
 
     // Дополнительные кнопки: Return, Cancel, Delete, Save
     // Return
-    auto iconReturnNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ReturnNormal.png"));
-    auto iconReturnDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ReturnDown.png"));
-    auto iconReturnOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ReturnOver.png"));
+    auto iconReturnNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/ReturnNormal.png"));
+    auto iconReturnDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/ReturnDown.png"));
+    auto iconReturnOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/ReturnOver.png"));
     FReturnButton.setImages(iconReturnNormal.get(), iconReturnOver.get(), iconReturnDown.get());
 
     // Cancel
-    auto iconCancelNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/CancelNormal.png"));
-    auto iconCancelDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/CancelDown.png"));
-    auto iconCancelOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/CancelOver.png"));
+    auto iconCancelNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/CancelNormal.png"));
+    auto iconCancelDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/CancelDown.png"));
+    auto iconCancelOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/CancelOver.png"));
     FCancelButton.setImages(iconCancelNormal.get(), iconCancelOver.get(), iconCancelDown.get());
 
     // Delete
-    auto iconDeleteNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/DeleteNormal.png"));
-    auto iconDeleteDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/DeleteDown.png"));
-    auto iconDeleteOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/DeleteOver.png"));
+    auto iconDeleteNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/DeleteNormal.png"));
+    auto iconDeleteDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/DeleteDown.png"));
+    auto iconDeleteOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/DeleteOver.png"));
     FDeleteAllButton.setImages(iconDeleteNormal.get(), iconDeleteOver.get(), iconDeleteDown.get());
 
     // Save
-    auto iconSaveNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/SaveNormal.png"));
-    auto iconSaveDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/SaveDown.png"));
-    auto iconSaveOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/SaveOver.png"));
+    auto iconSaveNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/SaveNormal.png"));
+    auto iconSaveDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/SaveDown.png"));
+    auto iconSaveOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/SaveOver.png"));
     FSaveButton.setImages(iconSaveNormal.get(), iconSaveOver.get(), iconSaveDown.get());
     Component::addAndMakeVisible(FBrush);
     Component::addAndMakeVisible(FEraser);

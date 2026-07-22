@@ -6443,23 +6443,23 @@
     <ClInclude Include="..\..\Include\MainFrame.h">
       <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\ButtonsPanel.h">
-      <Filter>Source</Filter>
+    <ClInclude Include="..\..\Include\Canvas.h">
+      <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\ButtonsPanelLeft.h">
-      <Filter>Source</Filter>
+    <ClInclude Include="..\..\Include\ButtonsPanel.h">
+      <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Canvas.h">
-      <Filter>Source</Filter>
+    <ClInclude Include="..\..\Include\ButtonsPanelLeft.h">
+      <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\ColourPanel.h">
-      <Filter>Source</Filter>
+    <ClInclude Include="..\..\Include\ColourPanel.h">
+      <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\SliderPanels.h">
-      <Filter>Source</Filter>
+    <ClInclude Include="..\..\Include\MenuModel.h">
+      <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\MenuModel.h">
-      <Filter>Source</Filter>
+    <ClInclude Include="..\..\Include\SliderPanels.h">
+      <Filter>Headers Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

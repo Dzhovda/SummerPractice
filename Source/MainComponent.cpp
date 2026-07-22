@@ -5,7 +5,6 @@
 // 1) сделать кисть и ластик 2) подписать панели 3) подставить иконки 3) 
 MainComponent::MainComponent()
 {
-	//setSize(1280, 720); // задаём размер до добавления в окно
 	canvas = new Canvas();
 	buttonsPanelLeft = new ButtonsPanelLeft(canvas);
 	buttonsPanel = new ButtonsPanel(canvas);
@@ -17,9 +16,17 @@ MainComponent::MainComponent()
 	addAndMakeVisible(buttonsPanelLeft);
 	addAndMakeVisible(colourPanel);
 	addAndMakeVisible(sliderPanels);
+
+	setSize(1280, 720); // задаём размер до добавления в окно
 	
 }
-MainComponent::~MainComponent() {}
+MainComponent::~MainComponent() {
+	delete canvas;
+	delete buttonsPanelLeft;
+	delete buttonsPanel;
+	delete colourPanel;
+	delete sliderPanels;
+}
 void MainComponent::resized(void){
 	int width = getWidth();
 	int height = getHeight();

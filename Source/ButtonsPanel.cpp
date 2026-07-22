@@ -37,99 +37,99 @@ ButtonsPanel::ButtonsPanel(Canvas* owner):
     Component::addAndMakeVisible(FButtonZoomOut);
 
     // Определяем корневую папку приложения
-    auto appDir = juce::File::getSpecialLocation(juce::File::currentExecutableFile).getParentDirectory();
+    auto appDir = juce::File::getCurrentWorkingDirectory().getParentDirectory().getParentDirectory();
     // Геометрические фигуры (верхняя панель)
     // Line
-    auto iconLineNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/LineNormal.png"));
-    auto iconLineDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/LineDown.png"));
-    auto iconLineOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/LineOver.png"));
+    auto iconLineNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/LineNormal.png"));
+    auto iconLineDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/LineDown.png"));
+    auto iconLineOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/LineOver.png"));
     FLineButton1.setImages(iconLineNormal.get(), iconLineOver.get(), iconLineDown.get());
 
     // Rect
-    auto iconRectNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/RectNormal.png"));
-    auto iconRectDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/RectDown.png"));
-    auto iconRectOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/RectOver.png"));
+    auto iconRectNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/RectNormal.png"));
+    auto iconRectDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/RectDown.png"));
+    auto iconRectOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/RectOver.png"));
     FRectButton2.setImages(iconRectNormal.get(), iconRectOver.get(), iconRectDown.get());
 
     // Triangle
-    auto iconTriangleNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/TriangleNormal.png"));
-    auto iconTriangleDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/TriangleDown.png"));
-    auto iconTriangleOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/TriangleOver.png"));
+    auto iconTriangleNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/TriangleNormal.png"));
+    auto iconTriangleDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/TriangleDown.png"));
+    auto iconTriangleOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/TriangleOver.png"));
     FTriangleButton3.setImages(iconTriangleNormal.get(), iconTriangleOver.get(), iconTriangleDown.get());
 
     // Romb
-    auto iconRombNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/RombNormal.png"));
-    auto iconRombDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/RombDown.png"));
-    auto iconRombOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/RombOver.png"));
+    auto iconRombNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/RombNormal.png"));
+    auto iconRombDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/RombDown.png"));
+    auto iconRombOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/RombOver.png"));
     FRombButton4.setImages(iconRombNormal.get(), iconRombOver.get(), iconRombDown.get());
 
     // Trapezoid
-    auto iconTrapNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/TrapNormal.png"));
-    auto iconTrapDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/TrapDown.png"));
-    auto iconTrapOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/TrapOver.png"));
+    auto iconTrapNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/TrapNormal.png"));
+    auto iconTrapDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/TrapDown.png"));
+    auto iconTrapOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/TrapOver.png"));
     FTrapezoidButton5.setImages(iconTrapNormal.get(), iconTrapOver.get(), iconTrapDown.get());
 
     // Parallelogram
-    auto iconParallelNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ParallelNormal.png"));
-    auto iconParallelDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ParallelDown.png"));
-    auto iconParallelOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ParallelOver.png"));
+    auto iconParallelNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/ParallelNormal.png"));
+    auto iconParallelDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/ParallelDown.png"));
+    auto iconParallelOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/ParallelOver.png"));
     FParallelogramButton6.setImages(iconParallelNormal.get(), iconParallelOver.get(), iconParallelDown.get());
 
     // Ellipse
-    auto iconEllipseNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/EllipseNormal.png"));
-    auto iconEllipseDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/EllipseDown.png"));
-    auto iconEllipseOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/EllipseOver.png"));
+    auto iconEllipseNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/EllipseNormal.png"));
+    auto iconEllipseDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/EllipseDown.png"));
+    auto iconEllipseOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/EllipseOver.png"));
     FEllipseButton7.setImages(iconEllipseNormal.get(), iconEllipseOver.get(), iconEllipseDown.get());
 
     // Polygon (с отдельной иконкой для включённого состояния)
-    auto iconPolygonNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/PollygonNormal.png"));
-    auto iconPolygonDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/PollygonDown.png"));
-    auto iconPolygonOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/PollygonOver.png"));
-    auto iconPolygonEnable = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/PollygonEnable.png"));
+    auto iconPolygonNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/PollygonNormal.png"));
+    auto iconPolygonDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/PollygonDown.png"));
+    auto iconPolygonOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/PollygonOver.png"));
+    auto iconPolygonEnable = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/PollygonEnable.png"));
     FPolygonButton8.setImages(iconPolygonNormal.get(), iconPolygonOver.get(), iconPolygonDown.get(), iconPolygonEnable.get());
 
     //Дополнительные кнопки
 
 // Copy
-    auto iconCopyNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/CopyNormal.png"));
-    auto iconCopyDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/CopyDown.png"));
-    auto iconCopyOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/CopyOver.png"));
-    auto iconCopyEnable = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/CopyEnable.png"));
+    auto iconCopyNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/CopyNormal.png"));
+    auto iconCopyDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/CopyDown.png"));
+    auto iconCopyOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/CopyOver.png"));
+    auto iconCopyEnable = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/CopyEnable.png"));
     FButtonCopy.setImages(iconCopyNormal.get(), iconCopyOver.get(), iconCopyDown.get(), iconCopyEnable.get());
 
     // Paste
-    auto iconPasteNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/PasteNormal.png"));
-    auto iconPasteDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/PasteDown.png"));
-    auto iconPasteOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/PasteOver.png"));
-    auto iconPasteEnable = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/PasteEnable.png"));
+    auto iconPasteNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/PasteNormal.png"));
+    auto iconPasteDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/PasteDown.png"));
+    auto iconPasteOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/PasteOver.png"));
+    auto iconPasteEnable = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/PasteEnable.png"));
     FButtonPaste.setImages(iconPasteNormal.get(), iconPasteOver.get(), iconPasteDown.get(), iconPasteEnable.get());
 
     // Grid
-    auto iconGridNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/GridNormal.png"));
-    auto iconGridDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/GridDown.png"));
-    auto iconGridOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/GridOver.png"));
-    auto iconGridEnable = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/GridEnable.png"));
+    auto iconGridNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/GridNormal.png"));
+    auto iconGridDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/GridDown.png"));
+    auto iconGridOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/GridOver.png"));
+    auto iconGridEnable = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/GridEnable.png"));
     FButtonGrid.setImages(iconGridNormal.get(), iconGridOver.get(), iconGridDown.get(), iconGridEnable.get());
 
     // Layers
-    auto iconLayersNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/LayersNormal.png"));
-    auto iconLayersDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/LayersDown.png"));
-    auto iconLayersOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/LayersOver.png"));
-    auto iconLayersEnable = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/LayersEnable.png"));
+    auto iconLayersNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/LayersNormal.png"));
+    auto iconLayersDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/LayersDown.png"));
+    auto iconLayersOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/LayersOver.png"));
+    auto iconLayersEnable = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/LayersEnable.png"));
     FButtonLayers.setImages(iconLayersNormal.get(), iconLayersOver.get(), iconLayersDown.get(), iconLayersEnable.get());
 
     // ZoomIn
-    auto iconZoomInNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ZoomInNormal.png"));
-    auto iconZoomInDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ZoomInDown.png"));
-    auto iconZoomInOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ZoomInOver.png"));
-    auto iconZoomInEnable = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ZoomInEnable.png"));
+    auto iconZoomInNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/ZoomInNormal.png"));
+    auto iconZoomInDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/ZoomInDown.png"));
+    auto iconZoomInOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/ZoomInOver.png"));
+    auto iconZoomInEnable = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/ZoomInEnable.png"));
     FButtonZoomIn.setImages(iconZoomInNormal.get(), iconZoomInOver.get(), iconZoomInDown.get(), iconZoomInEnable.get());
 
     // ZoomOut
-    auto iconZoomOutNormal = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ZoomOutNormal.png"));
-    auto iconZoomOutDown = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ZoomOutDown.png"));
-    auto iconZoomOutOver = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ZoomOutOver.png"));
-    auto iconZoomOutEnable = juce::Drawable::createFromImageFile(appDir.getChildFile("Resources/ZoomOutEnable.png"));
+    auto iconZoomOutNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/ZoomOutNormal.png"));
+    auto iconZoomOutDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/ZoomOutDown.png"));
+    auto iconZoomOutOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/ZoomOutOver.png"));
+    auto iconZoomOutEnable = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/ZoomOutEnable.png"));
     FButtonZoomOut.setImages(iconZoomOutNormal.get(), iconZoomOutOver.get(), iconZoomOutDown.get(), iconZoomOutEnable.get());
 
     //блок слушателя кнопок режима геометрии
