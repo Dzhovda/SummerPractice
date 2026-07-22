@@ -8,6 +8,7 @@ class MainFrame : public DocumentWindow
 public:
    //
    MainFrame(const String& name);
+   ~MainFrame();
    //
    void closeButtonPressed() override
    {

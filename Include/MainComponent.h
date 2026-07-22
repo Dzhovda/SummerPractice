@@ -11,6 +11,7 @@ class MainComponent : public Component
 public:
     MainComponent(void);
     ~MainComponent(void) override;
+    //JUCE_LEAK_DETECTOR(MainComponent)
     void resized(void) override;
     Canvas* getCanvas() const { return canvas; }
 private:
