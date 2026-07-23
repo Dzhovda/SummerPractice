@@ -1,10 +1,9 @@
-#include "MenuModel.h"
+ï»¿#include "MenuModel.h"
 #include "Canvas.h"
 
 MenuModel::MenuModel(Canvas* owner)
     : owner(owner)
 {
-
 }
 
 MenuModel::~MenuModel()
@@ -33,11 +32,11 @@ juce::PopupMenu MenuModel::getMenuForIndex(int topLevelMenuIndex, const juce::St
     }
     else if (topLevelMenuIndex == 1) // Edit
     {
-        // ìîæíî äîáàâèòü ïóíêòû ïîçæå
+        // Ð¼Ð¾Ð¶Ð½Ð¾ Ð´Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð¿ÑƒÐ½ÐºÑ‚Ñ‹ Ð¿Ð¾Ð·Ð¶Ðµ
     }
     else if (topLevelMenuIndex == 2) // Help
     {
-        // ìîæíî äîáàâèòü ïîçæå
+        // Ð¼Ð¾Ð¶Ð½Ð¾ Ð´Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð¿Ð¾Ð·Ð¶Ðµ
     }
 
     return menu;
@@ -57,10 +56,10 @@ void MenuModel::menuItemSelected(int menuItemID, int topLevelMenuIndex)
         owner->saveCanvasToPNG();
         break;
     case File_SaveAs:
-        owner->saveCanvasToPNG(); // èëè îòäåëüíûé ìåòîä
+        owner->saveCanvasToPNG(); // Ð¸Ð»Ð¸ Ð¾Ñ‚Ð´ÐµÐ»ÑŒÐ½Ñ‹Ð¹ Ð¼ÐµÑ‚Ð¾Ð´
         break;
     case File_Export:
-        owner->saveCanvasToPNG(); // èëè îòäåëüíûé ìåòîä äëÿ ýêñïîðòà
+        owner->saveCanvasToPNG(); // Ð¸Ð»Ð¸ Ð¾Ñ‚Ð´ÐµÐ»ÑŒÐ½Ñ‹Ð¹ Ð¼ÐµÑ‚Ð¾Ð´ Ð´Ð»Ñ ÑÐºÑÐ¿Ð¾Ñ€Ñ‚Ð°
         break;
     case File_Exit:
         JUCEApplication::getInstance()->systemRequestedQuit();

@@ -1,18 +1,82 @@
-#pragma once
+﻿#pragma once
 #include "../JuceLibraryCode/JuceHeader.h"
 class Canvas;
-class SliderPanels: public Slider::Listener, public Slider
+
+/**
+ * @class SliderPanels
+ * @brief Панель с двумя слайдерами для управления толщиной и прозрачностью.
+ *
+ * Класс SliderPanels представляет собой компонент, содержащий два горизонтальных
+ * слайдера:
+ * - Слайдер толщины линии (диапазон 1–15)
+ * - Слайдер прозрачности (диапазон 0.0–1.0)
+ *
+ * Панель наследует juce::Component и Slider::Listener для обработки событий
+ * изменения значений слайдеров. При изменении любого слайдера значение
+ * передаётся в холст (Canvas) через соответствующие методы.
+ *
+ * @see Canvas, juce::Slider, juce::Slider::Listener
+ */
+class SliderPanels : public Slider::Listener, public Slider
 {
 public:
-	SliderPanels(Canvas* owner);
-	~SliderPanels();
-	void paint(Graphics&) override;
-	void resized(void) override;
-	void sliderValueChanged(Slider* slider) override;
+    /**
+     * @brief Конструктор панели слайдеров.
+     *
+     * Создаёт два слайдера (толщина и прозрачность), настраивает их диапазоны,
+     * стили и добавляет их как дочерние компоненты. Подписывает себя на события
+     * изменения значений через addListener(this).
+     *
+     * @param owner Указатель на объект Canvas, которому будут передаваться
+     *              значения слайдеров. Должен существовать всё время жизни панели.
+     */
+    SliderPanels(Canvas* owner);
+
+    /**
+     * @brief Деструктор панели слайдеров.
+     *
+     * Отписывает слушателя от слайдеров, чтобы избежать утечек памяти
+     * и обращений к освобождённым объектам.
+     */
+    ~SliderPanels();
+
+    /**
+     * @brief Детектор утечек JUCE.
+     */
+    JUCE_LEAK_DETECTOR(SliderPanels)
+
+        /**
+         * @brief Отрисовывает текстовые подписи к слайдерам.
+         *
+         * Рисует надписи "Толщина" и "Прозрачность" над соответствующими слайдерами.
+         * Использует повёрнутый или обычный текст в зависимости от компоновки.
+         *
+         * @param g Объект Graphics для рисования.
+         */
+        void paint(Graphics&) override;
+
+    /**
+     * @brief Позиционирует слайдеры внутри панели.
+     *
+     * Задаёт координаты и размеры для каждого слайдера.
+     * Обычно размещает их горизонтально с отступами.
+     */
+    void resized(void) override;
+
+    /**
+     * @brief Обработчик изменения значения слайдера.
+     *
+     * Определяет, какой слайдер был изменён (по указателю), и вызывает
+     * соответствующий метод холста:
+     * - sliderThickness -> owner->setCurrentThickness()
+     * - sliderOpacity   -> owner->setCurrentOpacity()
+     *
+     * @param slider Указатель на слайдер, изменивший значение.
+     */
+    void sliderValueChanged(Slider* slider) override;
 
 private:
-	Canvas* owner;
-	Slider sliderThickness;
-	Slider sliderOpacity;
+    Canvas* owner;                ///< Указатель на холст для передачи команд.
+    Slider sliderThickness;       ///< Слайдер для управления толщиной линии.
+    Slider sliderOpacity;         ///< Слайдер для управления прозрачностью.
 };
-

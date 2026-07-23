@@ -1,21 +1,117 @@
-#pragma once
+﻿#pragma once
 #include "../JuceLibraryCode/JuceHeader.h"
 class Canvas;
-class ColourPanel: public Slider
+
+/**
+ * @class ColourPanel
+ * @brief Градиентный слайдер для выбора цвета.
+ *
+ * Класс ColourPanel представляет собой горизонтальный слайдер,
+ * фон которого заполнен радужным градиентом. Значение слайдера
+ * (от 0.0 до 1.0) соответствует оттенку в цветовой модели HSV.
+ * При изменении значения слайдера цвет передаётся в холст (Canvas)
+ * через вызов setCurrentColour().
+ *
+ * Класс наследует juce::Slider и переопределяет методы paint()
+ * для отрисовки градиента и valueChanged() для обработки изменения
+ * значения. Градиент строится на основе заранее заданного набора
+ * цветов (красный, оранжевый, жёлтый, зелёный, синий, фиолетовый).
+ *
+ * @see Canvas, juce::Slider, juce::ColourGradient
+ */
+class ColourPanel : public Slider
 {
 public:
+	/**
+	 * @brief Конструктор панели выбора цвета.
+	 *
+	 * Создаёт объект ColourPanel, настраивает стиль слайдера
+	 * (горизонтальный, без текстового поля), задаёт диапазон
+	 * значений от 0.0 до 0.8 (для ограничения отображаемого
+	 * спектра) и инициализирует градиент с фиксированными цветами.
+	 *
+	 * @param owner Указатель на объект Canvas, которому будет
+	 *              передаваться выбранный цвет. Должен существовать
+	 *              всё время жизни панели.
+	 */
 	ColourPanel(Canvas* owner);
+
+	/**
+	 * @brief Деструктор панели выбора цвета.
+	 *
+	 * Освобождает ресурсы. Указатель owner не удаляется, так как
+	 * холст управляется родительским компонентом.
+	 */
 	~ColourPanel(void);
-	void paint(Graphics&) override;
-	/*void mouseDown(const MouseEvent&) override;
-	void mouseDrag(const MouseEvent&) override;
-	void mouseUp(const MouseEvent&) override;*/
+
+	/**
+	 * @brief Детектор утечек JUCE.
+	 */
+	JUCE_LEAK_DETECTOR(ColourPanel)
+
+		/**
+		 * @brief Отрисовывает градиентный фон слайдера.
+		 *
+		 * Переопределяет метод Slider::paint(). Рисует радужный градиент
+		 * на всей области слайдера, используя FColourGradient, а затем
+		 * вызывает Slider::paint() для отображения стандартного бегунка.
+		 *
+		 * @param g Объект Graphics для рисования.
+		 */
+		void paint(Graphics&) override;
+
+	// Закомментированные методы обработки мыши (не используются)
+	// void mouseDown(const MouseEvent&) override;
+	// void mouseDrag(const MouseEvent&) override;
+	// void mouseUp(const MouseEvent&) override;
+
+	/**
+	 * @brief Обновляет геометрию слайдера.
+	 *
+	 * Вызывает Slider::resized() для корректного пересчёта
+	 * внутренних параметров слайдера при изменении размеров.
+	 */
 	void resized(void) override;
+
+	/**
+	 * @brief Обработчик изменения значения слайдера.
+	 *
+	 * Вызывается при каждом изменении положения бегунка.
+	 * Преобразует текущее значение (0.0 – 1.0) в цвет в модели HSV
+	 * (насыщенность и яркость = 1.0) и передаёт его в холст
+	 * через owner->setCurrentColour().
+	 *
+	 * @note Значение слайдера ограничено диапазоном [0.0, 0.8],
+	 *       что сужает отображаемый спектр до красного-фиолетового.
+	 */
 	void valueChanged() override;
+
 private:
 
-	Canvas* owner = nullptr;
-	std::vector<Colour>colours{Colours::red, Colours::orange, Colours::yellow, Colours::green, Colours::blue, Colours::violet};
+	Canvas* owner = nullptr; ///< Указатель на холст для передачи цвета.
+
+	/**
+	 * @brief Вектор цветов для построения градиента.
+	 *
+	 * Содержит шесть цветов радуги: красный, оранжевый, жёлтый,
+	 * зелёный, синий, фиолетовый. Используется для инициализации
+	 * объекта FColourGradient.
+	 */
+	std::vector<Colour> colours{
+		Colours::red,
+		Colours::orange,
+		Colours::yellow,
+		Colours::green,
+		Colours::blue,
+		Colours::violet
+	};
+
+	/**
+	 * @brief Объект цветового градиента.
+	 *
+	 * Содержит линейный градиент, построенный по точкам из вектора colours.
+	 * В методе paint() его координаты привязываются к области компонента
+	 * (point1 = topLeft, point2 = topRight).
+	 */
 	ColourGradient FColourGradient;
 };
-

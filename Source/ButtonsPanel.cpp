@@ -1,7 +1,17 @@
 ﻿#include "ButtonsPanel.h"
 #include "Canvas.h"
 
-ButtonsPanel::ButtonsPanel(Canvas* owner):
+/**
+ * @brief Конструктор панели верхних кнопок.
+ *
+ * Инициализирует все кнопки, задаёт их стиль (ImageAboveTextLabel),
+ * добавляет их в иерархию, загружает иконки из папки Resources
+ * и подписывает себя как слушателя нажатий.
+ *
+ * @param owner Указатель на объект Canvas, которому будут передаваться команды.
+ *              Должен существовать всё время жизни панели.
+ */
+ButtonsPanel::ButtonsPanel(Canvas* owner) :
     owner(owner),
     FLineButton1("Line", DrawableButton::ButtonStyle::ImageAboveTextLabel),
     FRectButton2("Rect", DrawableButton::ButtonStyle::ImageAboveTextLabel),
@@ -20,6 +30,7 @@ ButtonsPanel::ButtonsPanel(Canvas* owner):
 {
     Component::setOpaque(true);
 
+    // Добавляем кнопки как видимые дочерние компоненты
     Component::addAndMakeVisible(FLineButton1);
     Component::addAndMakeVisible(FRectButton2);
     Component::addAndMakeVisible(FTriangleButton3);
@@ -28,7 +39,6 @@ ButtonsPanel::ButtonsPanel(Canvas* owner):
     Component::addAndMakeVisible(FParallelogramButton6);
     Component::addAndMakeVisible(FEllipseButton7);
     Component::addAndMakeVisible(FPolygonButton8);
-
     Component::addAndMakeVisible(FButtonCopy);
     Component::addAndMakeVisible(FButtonPaste);
     Component::addAndMakeVisible(FButtonGrid);
@@ -36,9 +46,10 @@ ButtonsPanel::ButtonsPanel(Canvas* owner):
     Component::addAndMakeVisible(FButtonZoomIn);
     Component::addAndMakeVisible(FButtonZoomOut);
 
-    // Определяем корневую папку приложения
+    // Загрузка иконок (путь относительно рабочей директории)
     auto appDir = juce::File::getCurrentWorkingDirectory().getParentDirectory().getParentDirectory();
-    // Геометрические фигуры (верхняя панель)
+
+    // ===== Инициализация иконок геометрических фигур =====
     // Line
     auto iconLineNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/LineNormal.png"));
     auto iconLineDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/LineDown.png"));
@@ -88,9 +99,8 @@ ButtonsPanel::ButtonsPanel(Canvas* owner):
     auto iconPolygonEnable = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/PollygonEnable.png"));
     FPolygonButton8.setImages(iconPolygonNormal.get(), iconPolygonOver.get(), iconPolygonDown.get(), iconPolygonEnable.get());
 
-    //Дополнительные кнопки
-
-// Copy
+    // ===== Дополнительные кнопки =====
+    // Copy
     auto iconCopyNormal = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/CopyNormal.png"));
     auto iconCopyDown = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/CopyDown.png"));
     auto iconCopyOver = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/CopyOver.png"));
@@ -132,7 +142,7 @@ ButtonsPanel::ButtonsPanel(Canvas* owner):
     auto iconZoomOutEnable = juce::Drawable::createFromImageFile(appDir.getFullPathName() + ("/Resources/ZoomOutEnable.png"));
     FButtonZoomOut.setImages(iconZoomOutNormal.get(), iconZoomOutOver.get(), iconZoomOutDown.get(), iconZoomOutEnable.get());
 
-    //блок слушателя кнопок режима геометрии
+    // Подписка на события кнопок
     FLineButton1.addListener(this);
     FRectButton2.addListener(this);
     FTriangleButton3.addListener(this);
@@ -141,7 +151,6 @@ ButtonsPanel::ButtonsPanel(Canvas* owner):
     FParallelogramButton6.addListener(this);
     FEllipseButton7.addListener(this);
     FPolygonButton8.addListener(this);
-
     FButtonCopy.addListener(this);
     FButtonPaste.addListener(this);
     FButtonGrid.addListener(this);
@@ -149,6 +158,13 @@ ButtonsPanel::ButtonsPanel(Canvas* owner):
     FButtonZoomIn.addListener(this);
     FButtonZoomOut.addListener(this);
 }
+
+/**
+ * @brief Деструктор панели верхних кнопок.
+ *
+ * Отписывает слушателей от всех кнопок, чтобы избежать
+ * утечек памяти и обращений к разрушенному объекту.
+ */
 ButtonsPanel::~ButtonsPanel()
 {
     FLineButton1.removeListener(this);
@@ -159,7 +175,23 @@ ButtonsPanel::~ButtonsPanel()
     FParallelogramButton6.removeListener(this);
     FEllipseButton7.removeListener(this);
     FPolygonButton8.removeListener(this);
+    FButtonCopy.removeListener(this);
+    FButtonPaste.removeListener(this);
+    FButtonGrid.removeListener(this);
+    FButtonLayers.removeListener(this);
+    FButtonZoomIn.removeListener(this);
+    FButtonZoomOut.removeListener(this);
 }
+
+/**
+ * @brief Обработчик нажатия на кнопку.
+ *
+ * Определяет, какая кнопка была нажата, и вызывает соответствующий
+ * метод холста (owner->SetFigures()) для изменения текущего типа фигуры.
+ * Для дополнительных кнопок (Copy, Paste и др.) пока вызовы не реализованы.
+ *
+ * @param button Указатель на нажатую кнопку.
+ */
 void ButtonsPanel::buttonClicked(Button* button) {
     Canvas::Line line;
     if (button == &FLineButton1) {
@@ -186,45 +218,60 @@ void ButtonsPanel::buttonClicked(Button* button) {
     if (button == &FPolygonButton8) {
         owner->SetFigures(Canvas::Line::Figures::polygon);
     }
+    // Дополнительные кнопки (Copy, Paste, Grid, Layers, ZoomIn, ZoomOut)
+    // пока не реализованы – только заглушки.
 }
-void ButtonsPanel::paint(Graphics & g)
+
+/**
+ * @brief Отрисовывает фон панели и текстовые подписи.
+ *
+ * Заливает фон цветом (RGB: 191, 90, 90), рисует вертикальные
+ * разделители между группами кнопок и выводит подписи "Цвет" и "Геометрия".
+ *
+ * @param g Объект Graphics для рисования.
+ */
+void ButtonsPanel::paint(Graphics& g)
 {
     g.fillAll(juce::Colour(191, 90, 90));
-    //g.fillRect(0, 0, 1280, 70);
-    g.setColour(Colour(217,217,217));
-    //верхняя панель
-    //перемычки верхней панели
+    g.setColour(Colour(217, 217, 217));
+    // Рисование разделителей
     g.fillRect(80, 0, 13, 70);
     g.fillRect(374, 0, 13, 70);
     g.fillRect(529, 0, 13, 70);
     g.fillRect(684, 0, 13, 70);
-    g.fillRect(684, 0, 13, 70);
     g.fillRect(811, 0, 13, 70);
     g.fillRect(901, 0, 13, 70);
     g.fillRect(1117, 0, 13, 70);
-    g.fillRect(1117, 0, 13, 70);
     g.fillRect(1198, 0, 13, 70);
 
-    //текст 1) сохранить как 2) у кнопки сохранить нажать стрелку с кодировками 3) выбрать utf8
+    // Подписи
     g.setColour(juce::Colours::black);
     g.setFont(juce::Font(16.0f, juce::Font::bold));
     auto bounds = getLocalBounds();
-    float centerX = 20.0f;   // Отступ слева
+    float centerX = 20.0f;
     float centerY = bounds.getHeight() / 3.0f;
+
     juce::String text = juce::String::fromUTF8(u8"Цвет");
     juce::Rectangle<float> textArea(centerX + 660, centerY - 20, 140, 20);
     g.drawText(text, textArea, juce::Justification::centred, true);
+
     juce::String text2 = juce::String::fromUTF8(u8"Геометрия");
     juce::Rectangle<float> textArea2(centerX + 125, centerY - 20, 140, 20);
     g.drawText(text2, textArea2, juce::Justification::centred, true);
 }
 
-
+/**
+ * @brief Позиционирует все кнопки панели.
+ *
+ * Задаёт координаты и размеры для каждой кнопки (40x40 пикселей)
+ * с фиксированными отступами. Также отключает неактивные в данный
+ * момент кнопки (Polygon, Copy, Paste, Grid, Layers, ZoomIn, ZoomOut).
+ */
 void ButtonsPanel::resized(void)
 {
-    //Геометрия
-    FLineButton1.setBounds(91, 23, 40, 40);  // - 30 по Y
-    FRectButton2.setBounds(126, 23, 40, 40); // +35 по X для последующих кнопок по X
+    // Группа "Геометрия"
+    FLineButton1.setBounds(91, 23, 40, 40);
+    FRectButton2.setBounds(126, 23, 40, 40);
     FTriangleButton3.setBounds(161, 23, 40, 40);
     FRombButton4.setBounds(196, 23, 40, 40);
     FTrapezoidButton5.setBounds(231, 23, 40, 40);
@@ -232,13 +279,15 @@ void ButtonsPanel::resized(void)
     FEllipseButton7.setBounds(301, 23, 40, 40);
     FPolygonButton8.setBounds(336, 23, 40, 40);
 
-    FButtonCopy.setBounds(825,23,40,40);
-    FButtonPaste.setBounds(860,23,40,40);
-    FButtonGrid.setBounds(910,23,40,40);
-    FButtonLayers.setBounds(940,23,40,40);
-    FButtonZoomIn.setBounds(1130,23,40,40);
-    FButtonZoomOut.setBounds(1160,23,40,40);
+    // Дополнительные кнопки
+    FButtonCopy.setBounds(825, 23, 40, 40);
+    FButtonPaste.setBounds(860, 23, 40, 40);
+    FButtonGrid.setBounds(910, 23, 40, 40);
+    FButtonLayers.setBounds(940, 23, 40, 40);
+    FButtonZoomIn.setBounds(1130, 23, 40, 40);
+    FButtonZoomOut.setBounds(1160, 23, 40, 40);
 
+    // Временно отключаем нереализованные функции
     FPolygonButton8.setEnabled(false);
     FButtonCopy.setEnabled(false);
     FButtonPaste.setEnabled(false);

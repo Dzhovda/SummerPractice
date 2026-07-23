@@ -6443,22 +6443,22 @@
     <ClInclude Include="..\..\Include\MainFrame.h">
       <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Include\Canvas.h">
+    <ClInclude Include="..\..\Source\ButtonsPanel.h">
       <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Include\ButtonsPanel.h">
+    <ClInclude Include="..\..\Source\ButtonsPanelLeft.h">
       <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Include\ButtonsPanelLeft.h">
+    <ClInclude Include="..\..\Source\Canvas.h">
       <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Include\ColourPanel.h">
+    <ClInclude Include="..\..\Source\ColourPanel.h">
       <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Include\MenuModel.h">
+    <ClInclude Include="..\..\Source\MenuModel.h">
       <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Include\SliderPanels.h">
+    <ClInclude Include="..\..\Source\SliderPanels.h">
       <Filter>Headers Files</Filter>
     </ClInclude>
   </ItemGroup>
