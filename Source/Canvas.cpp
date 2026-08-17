@@ -38,11 +38,11 @@ void drawPath(Graphics& g, Path& path, float opacity, bool fill, int thickness,
     }
 }
 
-void Canvas::DrawFigures(Line& line, Graphics& g, Path& path, float opacity)
+void Canvas::DrawFigures(Canvas::Line& line, Graphics& g, Path& path, float opacity)
 {
-    if (line.figures == Line::Figures::brush || line.figures == Line::Figures::eraser)
+    if (line.figures == Canvas::Line::Figures::brush || line.figures == Line::Figures::eraser)
     {
-        Colour drawColour = (line.figures == Line::Figures::brush) ? line.colour : backgroundColor;
+        Colour drawColour = (line.figures == Canvas::Line::Figures::brush) ? line.colour : backgroundColor;
         g.setColour(drawColour);
         g.setOpacity(line.opacity);
 
@@ -60,11 +60,11 @@ void Canvas::DrawFigures(Line& line, Graphics& g, Path& path, float opacity)
     g.setColour(line.colour);
     g.setOpacity(line.opacity);
 
-    if (line.figures == Line::Figures::line)
+    if (line.figures == Canvas::Line::Figures::line)
     {
         g.drawLine(line.start.x, line.start.y, line.end.x, line.end.y, line.thickness);
     }
-    else if (line.figures == Line::Figures::rect)
+    else if (line.figures == Canvas::Line::Figures::rect)
     {
         int x1 = std::min(line.start.x, line.end.x), y1 = std::min(line.start.y, line.end.y);
         int x2 = std::max(line.start.x, line.end.x), y2 = std::min(line.start.y, line.end.y);
@@ -72,14 +72,14 @@ void Canvas::DrawFigures(Line& line, Graphics& g, Path& path, float opacity)
         int x4 = std::min(line.start.x, line.end.x), y4 = std::max(line.start.y, line.end.y);
         drawPath(g, path, opacity, line.fill, line.thickness, x1, y1, x2, y2, x3, y3, x4, y4);
     }
-    else if (line.figures == Line::Figures::triangle)
+    else if (line.figures == Canvas::Line::Figures::triangle)
     {
         int x1 = line.start.x, y1 = line.start.y;
         int x2 = line.end.x, y2 = line.end.y;
         int x3 = line.start.x - (line.end.x - line.start.x), y3 = line.end.y;
         drawPath(g, path, opacity, line.fill, line.thickness, x1, y1, x2, y2, x3, y3, 0, 0, true);
     }
-    else if (line.figures == Line::Figures::romb)
+    else if (line.figures == Canvas::Line::Figures::romb)
     {
         int dx = abs(line.end.x - line.start.x);
         int dy = abs(line.start.y - line.end.y);
@@ -90,7 +90,7 @@ void Canvas::DrawFigures(Line& line, Graphics& g, Path& path, float opacity)
         int x4 = cx, y4 = cy - dy;
         drawPath(g, path, opacity, line.fill, line.thickness, x1, y1, x2, y2, x3, y3, x4, y4);
     }
-    else if (line.figures == Line::Figures::trapezoid)
+    else if (line.figures == Canvas::Line::Figures::trapezoid)
     {
         int shift = 0.2 * abs(line.start.x - line.end.x);
         int x1 = line.start.x, y1 = line.start.y;
@@ -99,7 +99,7 @@ void Canvas::DrawFigures(Line& line, Graphics& g, Path& path, float opacity)
         int x4 = line.start.x + shift, y4 = line.end.y;
         drawPath(g, path, opacity, line.fill, line.thickness, x1, y1, x2, y2, x3, y3, x4, y4);
     }
-    else if (line.figures == Line::Figures::parallelogram)
+    else if (line.figures == Canvas::Line::Figures::parallelogram)
     {
         int shift = 0.2 * abs(line.start.x - line.end.x);
         int x1 = line.start.x, y1 = line.start.y;
@@ -108,7 +108,7 @@ void Canvas::DrawFigures(Line& line, Graphics& g, Path& path, float opacity)
         int x4 = line.start.x + shift, y4 = line.end.y;
         drawPath(g, path, opacity, line.fill, line.thickness, x1, y1, x2, y2, x3, y3, x4, y4);
     }
-    else if (line.figures == Line::Figures::ellipse)
+    else if (line.figures == Canvas::Line::Figures::ellipse)
     {
         g.drawEllipse(std::min(line.start.x, line.end.x), std::min(line.start.y, line.end.y),
             abs(line.start.x - line.end.x), abs(line.start.y - line.end.y), line.thickness);
@@ -166,7 +166,6 @@ void Canvas::resized()
     int h = getHeight();
     if (w <= 0 || h <= 0) return;
 
-    // Если изображение уже существует, копируем его содержимое в новое
     if (backgroundImage.isValid())
     {
         juce::Image newImage(juce::Image::ARGB, w, h, true);
@@ -194,7 +193,7 @@ Canvas::~Canvas() {}
 
 void Canvas::mouseDown(const MouseEvent& e)
 {
-    if (currentLine.figures == Line::Figures::brush || currentLine.figures == Line::Figures::eraser)
+    if (currentLine.figures == Canvas::Line::Figures::brush || currentLine.figures == Canvas::Line::Figures::eraser)
     {
         currentLine.points.clear();
         currentLine.start = e.getPosition();
@@ -203,7 +202,7 @@ void Canvas::mouseDown(const MouseEvent& e)
         currentLine.points.push_back(currentLine.start);
         isDragging = true;
     }
-    else if (currentLine.figures == Line::Figures::fillFigure)
+    else if (currentLine.figures == Canvas::Line::Figures::fillFigure)
     {
         if (backgroundImage.isValid())
             undoStack.push(backgroundImage.createCopy());
@@ -234,7 +233,7 @@ void Canvas::mouseDrag(const MouseEvent& e)
 {
     if (!isDragging) return;
 
-    if (currentLine.figures == Line::Figures::brush || currentLine.figures == Line::Figures::eraser)
+    if (currentLine.figures == Canvas::Line::Figures::brush || currentLine.figures == Canvas::Line::Figures::eraser)
     {
         currentLine.points.push_back(e.getPosition());
     }
@@ -250,8 +249,8 @@ void Canvas::mouseUp(const MouseEvent& e)
 {
     if (!isDragging) return;
 
-    if (currentLine.figures != Line::Figures::brush &&
-        currentLine.figures != Line::Figures::eraser)
+    if (currentLine.figures != Canvas::Line::Figures::brush &&
+        currentLine.figures != Canvas::Line::Figures::eraser)
     {
         currentLine.end = e.getPosition();
     }
@@ -309,7 +308,7 @@ void Canvas::DeleteLines()
     Graphics g(backgroundImage);
     g.fillAll(backgroundColor);
 
-    currentLine = Line();
+    currentLine = Canvas::Line();
     isDragging = false;
     repaint();
 }
@@ -401,7 +400,7 @@ void Canvas::loadPNGFromFile()
             if (loaded.isValid())
             {
                 backgroundImage = loaded;
-                currentLine = Line();
+                currentLine = Canvas::Line();
                 isDragging = false;
                 repaint();
                 juce::AlertWindow::showMessageBoxAsync(juce::AlertWindow::InfoIcon,
